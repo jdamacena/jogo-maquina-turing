@@ -118,15 +118,22 @@ public class TelaJogo extends AppCompatActivity {
         posicaoJogador01 = posicaoJogador01 >= casasTabuleiro.length ? casasTabuleiro.length - 1 : posicaoJogador01;
         posicaoJogador02 = posicaoJogador02 >= casasTabuleiro.length ? casasTabuleiro.length - 1 : posicaoJogador02;
 
-        // Levar os jogadores para as devida casas
-        casasTabuleiro[posicaoJogador01].setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.ic_jogador_01, 0, 0);
-        casasTabuleiro[posicaoJogador02].setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.mipmap.ic_jogador_02);
+        // Colocar os jogadores nas devida casas
+        if (posicaoJogador01 == posicaoJogador02) {
+            casasTabuleiro[posicaoJogador01].setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.ic_jogador_01, 0, R.mipmap.ic_jogador_02);
+        } else {
+            casasTabuleiro[posicaoJogador01].setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.ic_jogador_01, 0, 0);
+            casasTabuleiro[posicaoJogador02].setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.mipmap.ic_jogador_02);
+        }
     }
 
+    /**
+     * Fazer o processo completo de uma jogada
+     */
     public void realizarJogada() { // Tocar som ao final do jogo
 
         // Obter o resultado do dado
-        int[] dado = {-1, -1, 1, 1, 1, 2};
+        int[] dado = {-1, -1, 1, 1, 1, 2};// Dado com mais chance de sair 1, menos chance de sair -1 e pouca chance de sair 2
         int resultadoDoDado = dado[new Random().nextInt(6)];
         Log.i("Dado", "resultado=" + resultadoDoDado);
 
@@ -224,8 +231,10 @@ public class TelaJogo extends AppCompatActivity {
                 .show();
     }
 
+    /**
+     * Reiniciar o jogo
+     */
     private void reiniciarJogo() {
-        // TODO: 28/03/2017 fazer o jogo reiniciar
         startActivity(new Intent(this, TelaJogo.class));
         finish();
     }

@@ -6,9 +6,7 @@
     <string name="dialogoSairJogoBtnSairDoJogo">Sim</string>
     <string name="dialogoSairJogoBtnFicarNoJogo">Não</string>
     <string name="menuPricipalBtnSair">Sair</string>
-    <string name="menuPricipalBtnRecordes">Recordes</string>
-    <string name="menuPricipalBtnModo1Jogador">1 Jogador</string>
-    <string name="menuPricipalBtnModo2Jogadores">2 Jogadores</string>
+    <string name="menuPricipalBtnModo2Jogadores">Jogar</string>
     <string name="menuPricipalTituloBoasVindas">Bem vindo ao jogo!</string>
     <string name="menuPricipalBtnSom">Som</string>
     <string name="menuPricipalBtnSemSom">Sem som</string>
@@ -20,6 +18,9 @@
     <string name="dialogoGameOverMensagem">O vencedor é %s!</string>
     <string name="dialogoGameOverLabelBtnFechar">Fechar</string>
     <string name="dialogoGameOverLabelBtnReiniciar">Reiniciar</string>
+    <string name="dialgoBoasVindasMensagem">Quem começa é o %s</string>
+    <string name="dialgoBoasVindasTitulo">Você agora está no jogo!</string>
+    <string name="dialgoBoasVindasLabelBtnComecar">Começar</string>
 
     <array name="indicacaoDoJogadorDaVez">
         <item>%s, role o dado!</item>

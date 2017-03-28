@@ -16,38 +16,24 @@
         android:text="@string/menuPricipalTituloBoasVindas"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
+        android:layout_above="@+id/linearLayout"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="69dp" />
+        android:layout_marginBottom="38dp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/linearLayout">
 
         <Button
-            android:id="@+id/btnNovoJogoMulti"
+            android:id="@+id/btnNovoJogo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickMenu"
             android:text="@string/menuPricipalBtnModo2Jogadores" />
-
-        <Button
-            android:id="@+id/btnNovoJogoSingle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onClickMenu"
-            android:text="@string/menuPricipalBtnModo1Jogador" />
-
-        <Button
-            android:id="@+id/btnRecordes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onClickMenu"
-            android:text="@string/menuPricipalBtnRecordes" />
 
         <Button
             android:id="@+id/btnSair"
@@ -62,10 +48,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:text="@string/menuPricipalBtnSom"
         android:textOff="@string/menuPricipalBtnSemSom"
-        android:textOn="@string/menuPricipalBtnComSom" />
+        android:textOn="@string/menuPricipalBtnComSom"
+        android:visibility="gone" />
 
 </RelativeLayout>

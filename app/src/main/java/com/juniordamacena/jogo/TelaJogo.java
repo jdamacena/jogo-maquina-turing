@@ -2,6 +2,7 @@ package com.juniordamacena.jogo;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -53,9 +54,9 @@ public class TelaJogo extends AppCompatActivity {
         jogadorDaVez = escolherJogadorAleatoriamente();
 
         new AlertDialog.Builder(this)
-                .setTitle("Bem vindo ao jogo")
-                .setMessage("Quem começa é o " + jogadorDaVez)
-                .setPositiveButton("Começar", null)
+                .setTitle(R.string.dialgoBoasVindasTitulo)
+                .setMessage(String.format(getString(R.string.dialgoBoasVindasMensagem), jogadorDaVez))
+                .setPositiveButton(R.string.dialgoBoasVindasLabelBtnComecar, null)
                 .show();
 
         // Atualizar o título no topo da tela
@@ -107,15 +108,15 @@ public class TelaJogo extends AppCompatActivity {
      * Esse método atualiza a posição dos jogadores no tabuleiro
      */
     public void atualizarPosicao(int posicaoJogador01, int posicaoJogador02) {
-        posicaoJogador01 = posicaoJogador01 <= 0 ? 0 : posicaoJogador01;
-        posicaoJogador02 = posicaoJogador02 <= 0 ? 0 : posicaoJogador02;
-        posicaoJogador01 = posicaoJogador01 >= casasTabuleiro.length ? casasTabuleiro.length - 1 : posicaoJogador01;
-        posicaoJogador02 = posicaoJogador02 >= casasTabuleiro.length ? casasTabuleiro.length - 1 : posicaoJogador02;
-
         // Limpar todos os drawables já existentes no tabuleiro
         for (TextView view : casasTabuleiro) {
             view.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
         }
+
+        posicaoJogador01 = posicaoJogador01 <= 0 ? 0 : posicaoJogador01;
+        posicaoJogador02 = posicaoJogador02 <= 0 ? 0 : posicaoJogador02;
+        posicaoJogador01 = posicaoJogador01 >= casasTabuleiro.length ? casasTabuleiro.length - 1 : posicaoJogador01;
+        posicaoJogador02 = posicaoJogador02 >= casasTabuleiro.length ? casasTabuleiro.length - 1 : posicaoJogador02;
 
         // Levar os jogadores para as devida casas
         casasTabuleiro[posicaoJogador01].setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.ic_jogador_01, 0, 0);
@@ -124,46 +125,47 @@ public class TelaJogo extends AppCompatActivity {
 
     public void realizarJogada() {
         // Obter o resultado do dado
-        int[] dado = {-1, 1, 2};
-        int resultadoDoDado = dado[new Random().nextInt(3)];
+        int[] dado = {-1, -1, 1, 1, 1, 2};
+        int resultadoDoDado = dado[new Random().nextInt(6)];
         Log.i("Dado", "resultado=" + resultadoDoDado);
 
         // Ajustar a posição dos jogadores
         switch (jogadorDaVez) {
 
             case JOGADOR01:
-
                 // Atualizar posição jogador 1
-                posicaoJogador1 += resultadoDoDado;
-
                 // Evitar que posição seja menor que 0
+                posicaoJogador1 += resultadoDoDado;
                 posicaoJogador1 = posicaoJogador1 < 0 ? 0 : posicaoJogador1;
 
                 // Caso o jogo tenha acabado, informar o vencedor
                 if (posicaoJogador1 >= POSICAO_FINAL_JOGO)
                     finalDeJogo(Jogadores.JOGADOR01);
-                else
+                else {
+                    atualizarStatus(Jogadores.JOGADOR01, resultadoDoDado);
                     jogadorDaVez = Jogadores.JOGADOR02;
+                }
                 break;
 
             case JOGADOR02:
 
                 // Atualizar posição jogador 2
-                posicaoJogador2 += resultadoDoDado;
-
                 // Evitar que posição seja menor que 0
+                posicaoJogador2 += resultadoDoDado;
                 posicaoJogador2 = posicaoJogador2 < 0 ? 0 : posicaoJogador2;
+
 
                 // Caso o jogo tenha acabado, informar o vencedor
                 if (posicaoJogador2 >= POSICAO_FINAL_JOGO)
                     finalDeJogo(Jogadores.JOGADOR02);
-                else
+                else {
+                    atualizarStatus(Jogadores.JOGADOR02, resultadoDoDado);
                     jogadorDaVez = Jogadores.JOGADOR01;
+                }
                 break;
         }
         atualizarPosicao(posicaoJogador1, posicaoJogador2);
         atualizarTitulo(jogadorDaVez);
-        atualizarStatus(jogadorDaVez, resultadoDoDado);
     }
 
     /**
@@ -178,10 +180,13 @@ public class TelaJogo extends AppCompatActivity {
         switch (casasQueMoveu) {
             case -1:
                 view.setText(R.string.statusVoltou1Casa);
+                break;
             case 1:
                 view.setText(R.string.statusAndou1Casa);
+                break;
             case 2:
                 view.setText(R.string.statusAndou2Casas);
+                break;
         }
     }
 
@@ -189,6 +194,16 @@ public class TelaJogo extends AppCompatActivity {
      * Finalizar o jogo e informar o vencedor
      */
     private void finalDeJogo(Jogadores vencedor) {
+        // Tocar som ao final do jogo
+        MediaPlayer mediaPlayer;
+
+        if (vencedor == Jogadores.JOGADOR01) {
+            mediaPlayer = MediaPlayer.create(this, R.raw.nerd);
+        } else {
+            mediaPlayer = MediaPlayer.create(this, R.raw.risada);
+        }
+        mediaPlayer.start();
+
         new AlertDialog.Builder(this)
                 .setTitle(R.string.dialogoGameOverTitulo)
                 .setMessage(String.format(getString(R.string.dialogoGameOverMensagem), vencedor))

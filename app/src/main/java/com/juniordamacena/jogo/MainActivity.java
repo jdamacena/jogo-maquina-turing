@@ -17,17 +17,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickMenu(View view) {
         switch (view.getId()) {
-            case R.id.btnNovoJogoSingle:
+            case R.id.btnNovoJogo:
                 // Iniciar o jogo no modo 1 jogador
-                iniciarJogoSingle();
-                break;
-            case R.id.btnNovoJogoMulti:
-                // Iniciar o jogo no modo 2 jogadores
-                iniciarJogoMulti();
-                break;
-            case R.id.btnRecordes:
-                // Abrir tela com os recordes
-                abrirTelaRecordes();
+                iniciarJogo();
                 break;
             case R.id.btnSair:
                 sairDoJogo();
@@ -38,26 +30,9 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Método responsável pela abertura do jogo
      */
-    private void iniciarJogoSingle() {
+    private void iniciarJogo() {
         Intent intent = new Intent(this, TelaJogo.class);
-        intent.putExtra(ModosJogo.getNome(), ModosJogo.SINGLE);
         startActivity(intent);
-    }
-
-    /**
-     * Método responsável pela abertura do jogo
-     */
-    private void iniciarJogoMulti() {
-        Intent intent = new Intent(this, TelaJogo.class);
-        intent.putExtra("modo", ModosJogo.MULTI);
-        startActivity(intent);
-    }
-
-    /**
-     * Método responsável por abrir a tela de recordes
-     */
-    private void abrirTelaRecordes() {
-        startActivity(new Intent(this, TelaRecordes.class));
     }
 
     @Override

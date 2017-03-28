@@ -13,6 +13,13 @@
     <string name="menuPricipalBtnSom">Som</string>
     <string name="menuPricipalBtnSemSom">Sem som</string>
     <string name="menuPricipalBtnComSom">Com som</string>
+    <string name="statusVoltou1Casa">Voltou uma casa.</string>
+    <string name="statusAndou1Casa">Andou 1 casa.</string>
+    <string name="statusAndou2Casas">Andou 2 casas!</string>
+    <string name="dialogoGameOverTitulo">O jogo acabou</string>
+    <string name="dialogoGameOverMensagem">O vencedor é %s!</string>
+    <string name="dialogoGameOverLabelBtnFechar">Fechar</string>
+    <string name="dialogoGameOverLabelBtnReiniciar">Reiniciar</string>
 
     <array name="indicacaoDoJogadorDaVez">
         <item>%s, role o dado!</item>

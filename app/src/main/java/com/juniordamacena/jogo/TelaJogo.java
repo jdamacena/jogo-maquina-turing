@@ -1,5 +1,7 @@
 package com.juniordamacena.jogo;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -12,13 +14,15 @@ import java.util.Random;
 
 public class TelaJogo extends AppCompatActivity {
 
-    private final int posicaoFinalJogo = 11;
+    private static final int POSICAO_FINAL_JOGO = 11;
     private TextView[] casasTabuleiro;
     private View tabuleiro;
     private int posicaoJogador1 = 0, posicaoJogador2 = 0;
     private Jogadores jogadorDaVez;
-    private TextView txtTitulo;
     private String[] frasesDeIndicacaoDaVez;
+    private TextView txtStatusJog2;
+    private TextView txtStatusJog1;
+    private TextView txtTitulo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,8 @@ public class TelaJogo extends AppCompatActivity {
         tabuleiro = findViewById(R.id.tabuleiro);
         txtTitulo = (TextView) findViewById(R.id.txtTitulo);
         frasesDeIndicacaoDaVez = getResources().getStringArray(R.array.indicacaoDoJogadorDaVez);
+        txtStatusJog1 = (TextView) findViewById(R.id.txtStatusJog1);
+        txtStatusJog2 = (TextView) findViewById(R.id.txtStatusJog2);
 
         findViewById(R.id.btnDado).setOnClickListener(onClickBtnDado());
 
@@ -58,6 +64,7 @@ public class TelaJogo extends AppCompatActivity {
 
     /**
      * Escolhe um jogador aleatoriamente
+     *
      * @return jogador
      */
     private Jogadores escolherJogadorAleatoriamente() {
@@ -133,7 +140,7 @@ public class TelaJogo extends AppCompatActivity {
                 posicaoJogador1 = posicaoJogador1 < 0 ? 0 : posicaoJogador1;
 
                 // Caso o jogo tenha acabado, informar o vencedor
-                if (posicaoJogador1 >= posicaoFinalJogo)
+                if (posicaoJogador1 >= POSICAO_FINAL_JOGO)
                     finalDeJogo(Jogadores.JOGADOR01);
                 else
                     jogadorDaVez = Jogadores.JOGADOR02;
@@ -148,7 +155,7 @@ public class TelaJogo extends AppCompatActivity {
                 posicaoJogador2 = posicaoJogador2 < 0 ? 0 : posicaoJogador2;
 
                 // Caso o jogo tenha acabado, informar o vencedor
-                if (posicaoJogador2 >= posicaoFinalJogo)
+                if (posicaoJogador2 >= POSICAO_FINAL_JOGO)
                     finalDeJogo(Jogadores.JOGADOR02);
                 else
                     jogadorDaVez = Jogadores.JOGADOR01;
@@ -156,12 +163,54 @@ public class TelaJogo extends AppCompatActivity {
         }
         atualizarPosicao(posicaoJogador1, posicaoJogador2);
         atualizarTitulo(jogadorDaVez);
+        atualizarStatus(jogadorDaVez, resultadoDoDado);
+    }
+
+    /**
+     * Configurar os textos de acordo com o número de casas que o jogador andou
+     *
+     * @param jogadorDaVez  o jogador que terá o status atualizado
+     * @param casasQueMoveu o número de casas que o mesmo se moveu
+     */
+    private void atualizarStatus(Jogadores jogadorDaVez, int casasQueMoveu) {
+        TextView view = (jogadorDaVez == Jogadores.JOGADOR01) ? txtStatusJog1 : txtStatusJog2;
+
+        switch (casasQueMoveu) {
+            case -1:
+                view.setText(R.string.statusVoltou1Casa);
+            case 1:
+                view.setText(R.string.statusAndou1Casa);
+            case 2:
+                view.setText(R.string.statusAndou2Casas);
+        }
     }
 
     /**
      * Finalizar o jogo e informar o vencedor
      */
     private void finalDeJogo(Jogadores vencedor) {
-        new AlertDialog.Builder(this).setTitle("O jogo acabou").setMessage("O vencedor é " + vencedor + "!").show();
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.dialogoGameOverTitulo)
+                .setMessage(String.format(getString(R.string.dialogoGameOverMensagem), vencedor))
+                .setNegativeButton(R.string.dialogoGameOverLabelBtnFechar, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                })
+                .setPositiveButton(R.string.dialogoGameOverLabelBtnReiniciar, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        reiniciarJogo();
+                    }
+                })
+                .setCancelable(false)
+                .show();
+    }
+
+    private void reiniciarJogo() {
+        // TODO: 28/03/2017 fazer o jogo reiniciar
+        startActivity(new Intent(this, TelaJogo.class));
+        finish();
     }
 }

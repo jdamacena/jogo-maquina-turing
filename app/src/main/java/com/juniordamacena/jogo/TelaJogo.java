@@ -120,8 +120,10 @@ public class TelaJogo extends AppCompatActivity {
 
         // Colocar os jogadores nas devida casas
         if (posicaoJogador01 == posicaoJogador02) {
+            // Caso os dois apareçam na mesma casa, devem ser desenhados juntos
             casasTabuleiro[posicaoJogador01].setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.ic_jogador_01, 0, R.mipmap.ic_jogador_02);
         } else {
+            // Caso cada um apareça em uma casa, podem ser desenhados separados
             casasTabuleiro[posicaoJogador01].setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.ic_jogador_01, 0, 0);
             casasTabuleiro[posicaoJogador02].setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.mipmap.ic_jogador_02);
         }

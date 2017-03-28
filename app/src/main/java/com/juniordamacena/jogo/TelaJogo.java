@@ -123,7 +123,8 @@ public class TelaJogo extends AppCompatActivity {
         casasTabuleiro[posicaoJogador02].setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.mipmap.ic_jogador_02);
     }
 
-    public void realizarJogada() {
+    public void realizarJogada() { // Tocar som ao final do jogo
+
         // Obter o resultado do dado
         int[] dado = {-1, -1, 1, 1, 1, 2};
         int resultadoDoDado = dado[new Random().nextInt(6)];

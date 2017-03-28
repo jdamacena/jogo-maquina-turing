@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Jogo do Nelson</string>
+
+    <string name="title_activity_tela_jogo">Jogo do Nelson</string>
+    <string name="dialogoSairJogoTitulo">Sair do jogo?</string>
+    <string name="dialogoSairJogoBtnSairDoJogo">Sim</string>
+    <string name="dialogoSairJogoBtnFicarNoJogo">Não</string>
+    <string name="menuPricipalBtnSair">Sair</string>
+    <string name="menuPricipalBtnRecordes">Recordes</string>
+    <string name="menuPricipalBtnModo1Jogador">1 Jogador</string>
+    <string name="menuPricipalBtnModo2Jogadores">2 Jogadores</string>
+    <string name="menuPricipalTituloBoasVindas">Bem vindo ao jogo!</string>
+    <string name="menuPricipalBtnSom">Som</string>
+    <string name="menuPricipalBtnSemSom">Sem som</string>
+    <string name="menuPricipalBtnComSom">Com som</string>
+
+    <array name="indicacaoDoJogadorDaVez">
+        <item>%s, role o dado!</item>
+        <item>É sua vez, %s.</item>
+        <item>%s, manda ver!</item>
+        <item>E aí, %s, bora ou não bora?</item>
+        <item>%s, pode jogar.</item>
+        <item>%s, fique à vontade.</item>
+        <item>Quem joga agora: %s</item>
+        <item>Vai, %s!</item>
+        <item>%s, está liberado para jogar.</item>
+        <item>%s, é a sua vez.</item>
+        <item>%s, só joga.</item>
+        <item>%s, é você.</item>
+    </array>
+</resources>
